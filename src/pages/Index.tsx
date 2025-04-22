@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import ChapterIntro from "../components/ChapterIntro";
 import ChapterVideo from "../components/ChapterVideo";
 import HoverFactCard from "../components/HoverFactCard";
 import ChapterQuiz from "../components/ChapterQuiz";
 import GlassCard from "../components/ui/glass-card";
-import LanguageToggle from "../components/LanguageToggle";
 import VocabularyPopup from "../components/VocabularyPopup";
-import ReferenceSection from "../components/ReferenceSection";
 import { BookOpen, Calendar, User, History, Crown, Flag, Globe, Trophy } from "lucide-react";
+import { useLanguage } from "../components/LanguageContext";
 
 // Facts and quizzes for each chapter
 const chapter1Facts = [
@@ -330,72 +329,21 @@ const chapter8Vocabulary = [
   { term: "slogan", translation: "slogan" },
 ];
 
-// References example per chapter (simplified w/ logos)
-const wikiLogo = "/logos/wikipedia.png";
-const britLogo = "/logos/britannica.png";
-const historyLogo = "/logos/historycom.png";
-
-const chapter1References = [
-  {
-    name: "Wikipedia",
-    url: "https://en.wikipedia.org/wiki/Julius_Caesar",
-    citation: "\"Julius Caesar.\" Wikipedia, The Free Encyclopedia.",
-    logoUrl: wikiLogo,
-  },
-  {
-    name: "Britannica",
-    url: "https://www.britannica.com/biography/Julius-Caesar",
-    citation: "\"Julius Caesar.\" Encyclopedia Britannica.",
-    logoUrl: britLogo,
-  },
-  {
-    name: "History.com",
-    url: "https://www.history.com/topics/ancient-rome/julius-caesar",
-    citation: "\"Julius Caesar Biography\" History.com Editors.",
-    logoUrl: historyLogo,
-  },
-];
-// ... similarly define references for chapters 2-8...
-
 const Index = () => {
-  const [language, setLanguage] = useState<"french" | "english">(
-    (typeof window !== "undefined" && (localStorage.getItem("language") === "english" || localStorage.getItem("language") === "french")
-      ? (localStorage.getItem("language") as "french" | "english")
-      : "french")
-  );
-
-  // Sync language with storage, and provide setter for LanguageToggle usage
-  React.useEffect(() => {
-    localStorage.setItem("language", language)
-  }, [language])
-
-  // Override LanguageToggle to lift state up
-  const LanguageToggleControlled = () => {
-    return (
-      <button
-        onClick={() => setLanguage(language === "french" ? "english" : "french")}
-        aria-label="Toggle language"
-        className="flex items-center gap-2 rounded-md border border-gray-300 bg-white dark:bg-gray-800 px-3 py-1 text-sm shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors select-none"
-      >
-        <span className="text-2xl">{language === "french" ? "🇫🇷" : "🇬🇧"}</span>
-        <span className="font-medium">{language === "french" ? "Français" : "English"}</span>
-      </button>
-    )
-  };
+  const { language } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#D3E4FD]/60 via-white to-[#F1F0FB]/90 p-6 sm:p-10 md:p-16 flex flex-col items-center text-charcoalGray">
+    <div className="min-h-screen bg-gradient-to-b from-purple-100 via-white to-purple-200 p-6 sm:p-10 md:p-16 flex flex-col items-center text-charcoalGray dark:text-gray-100">
       <header className="mb-16 w-full max-w-5xl flex flex-row items-center justify-between">
         <div>
           <h1 className="font-playfair text-5xl md:text-6xl font-bold drop-shadow-md">
             Echoes of France
           </h1>
-          <p className="text-lg md:text-xl text-gray-700">
-            {language === "french" ? "Un voyage à travers l’histoire de France" : "A Journey Through French History"}
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300">
+            {language === "french"
+              ? "Un voyage à travers l'histoire de France"
+              : "A Journey Through French History"}
           </p>
-        </div>
-        <div>
-          <LanguageToggleControlled />
         </div>
       </header>
 
@@ -430,29 +378,37 @@ const Index = () => {
               {language === "french" ? "Faits Historiques" : "Historical Facts"}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {["Jules César a conquis la Gaule entre 58 et 50 avant J.-C.","La bataille d'Alésia en 52 avant J.-C. fut décisive pour la conquête romaine.", "La Gaule était habitée par diverses tribus celtiques avant la conquête."]
-                .map((fact, idx) => (
-                  <HoverFactCard
-                    key={idx}
-                    french={["Jules César a conquis la Gaule entre 58 et 50 avant J.-C.","La bataille d'Alésia en 52 avant J.-C. fut décisive pour la conquête romaine.", "La Gaule était habitée par diverses tribus celtiques avant la conquête."][idx]}
-                    english={["Julius Caesar conquered Gaul between 58 and 50 BC.","The Battle of Alesia in 52 BC was decisive in the Roman conquest.","Gaul was inhabited by various Celtic tribes before conquest."][idx]}
-                  />
-                ))}
+              {chapter1Facts.map((fact) => (
+                <HoverFactCard
+                  key={fact.id}
+                  french={fact.french}
+                  english={fact.english}
+                />
+              ))}
             </div>
           </GlassCard>
 
           <VocabularyPopup vocabulary={chapter1Vocabulary} language={language} />
 
-          <ReferenceSection references={chapter1References} />
+          {/* Note: Moved References to separate page - link here */}
+          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
+            <a href="/references" target="_blank" rel="noopener noreferrer">
+              {language === "french" ? "Voir toutes les références" : "See all references"}
+            </a>
+          </div>
 
           <GlassCard className="p-6 mt-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold mb-4">
-              <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
+              <Calendar size={24} />{" "}
+              {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
             </h2>
             <ChapterQuiz
               questions={[
                 {
-                  question: language === "french" ? "Quand a eu lieu la bataille d'Alésia?" : "When did the battle of Alesia take place?",
+                  question:
+                    language === "french"
+                      ? "Quand a eu lieu la bataille d'Alésia?"
+                      : "When did the battle of Alesia take place?",
                   options: [
                     "52 avant J.-C.",
                     "43 après J.-C.",
@@ -462,7 +418,9 @@ const Index = () => {
                   correctOptionIndex: 0,
                 },
                 {
-                  question: language === "french" ? "Qui a dirigé la conquête de la Gaule?" : "Who led the conquest of Gaul?",
+                  question: language === "french"
+                    ? "Qui a dirigé la conquête de la Gaule?"
+                    : "Who led the conquest of Gaul?",
                   options: [
                     "Vercingétorix",
                     "Jules César",
@@ -496,7 +454,7 @@ const Index = () => {
         <div className="md:w-3/5 flex flex-col gap-8">
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <User size={24} /> Faits Historiques
+              <User size={24} /> {language === "french" ? "Faits Historiques" : "Historical Facts"}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {chapter2Facts.map((fact) => (
@@ -509,9 +467,18 @@ const Index = () => {
             </div>
           </GlassCard>
 
+          <VocabularyPopup vocabulary={chapter2Vocabulary} language={language} />
+
+          {/* Note: Moved References to separate page - link here */}
+          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
+            <a href="/references" target="_blank" rel="noopener noreferrer">
+              {language === "french" ? "Voir toutes les références" : "See all references"}
+            </a>
+          </div>
+
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Calendar size={24} /> Testez Vos Connaissances
+              <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
             </h2>
             <ChapterQuiz questions={chapter2Quiz} />
           </GlassCard>
@@ -537,7 +504,7 @@ const Index = () => {
         <div className="md:w-3/5 flex flex-col gap-8">
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <History size={24} /> Faits Historiques
+              <History size={24} /> {language === "french" ? "Faits Historiques" : "Historical Facts"}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {chapter3Facts.map((fact) => (
@@ -550,9 +517,18 @@ const Index = () => {
             </div>
           </GlassCard>
 
+          <VocabularyPopup vocabulary={chapter3Vocabulary} language={language} />
+
+          {/* Note: Moved References to separate page - link here */}
+          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
+            <a href="/references" target="_blank" rel="noopener noreferrer">
+              {language === "french" ? "Voir toutes les références" : "See all references"}
+            </a>
+          </div>
+
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Calendar size={24} /> Testez Vos Connaissances
+              <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
             </h2>
             <ChapterQuiz questions={chapter3Quiz} />
           </GlassCard>
@@ -578,7 +554,7 @@ const Index = () => {
         <div className="md:w-3/5 flex flex-col gap-8">
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Crown size={24} /> Faits Historiques
+              <Crown size={24} /> {language === "french" ? "Faits Historiques" : "Historical Facts"}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {chapter4Facts.map((fact) => (
@@ -591,9 +567,18 @@ const Index = () => {
             </div>
           </GlassCard>
 
+          <VocabularyPopup vocabulary={chapter4Vocabulary} language={language} />
+
+          {/* Note: Moved References to separate page - link here */}
+          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
+            <a href="/references" target="_blank" rel="noopener noreferrer">
+              {language === "french" ? "Voir toutes les références" : "See all references"}
+            </a>
+          </div>
+
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Calendar size={24} /> Testez Vos Connaissances
+              <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
             </h2>
             <ChapterQuiz questions={chapter4Quiz} />
           </GlassCard>
@@ -619,7 +604,7 @@ const Index = () => {
         <div className="md:w-3/5 flex flex-col gap-8">
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Trophy size={24} /> Faits Historiques
+              <Trophy size={24} /> {language === "french" ? "Faits Historiques" : "Historical Facts"}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {chapter5Facts.map((fact) => (
@@ -632,9 +617,18 @@ const Index = () => {
             </div>
           </GlassCard>
 
+          <VocabularyPopup vocabulary={chapter5Vocabulary} language={language} />
+
+          {/* Note: Moved References to separate page - link here */}
+          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
+            <a href="/references" target="_blank" rel="noopener noreferrer">
+              {language === "french" ? "Voir toutes les références" : "See all references"}
+            </a>
+          </div>
+
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Calendar size={24} /> Testez Vos Connaissances
+              <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
             </h2>
             <ChapterQuiz questions={chapter5Quiz} />
           </GlassCard>
@@ -660,7 +654,7 @@ const Index = () => {
         <div className="md:w-3/5 flex flex-col gap-8">
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Flag size={24} /> Faits Historiques
+              <Flag size={24} /> {language === "french" ? "Faits Historiques" : "Historical Facts"}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {chapter6Facts.map((fact) => (
@@ -673,9 +667,18 @@ const Index = () => {
             </div>
           </GlassCard>
 
+          <VocabularyPopup vocabulary={chapter6Vocabulary} language={language} />
+
+          {/* Note: Moved References to separate page - link here */}
+          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
+            <a href="/references" target="_blank" rel="noopener noreferrer">
+              {language === "french" ? "Voir toutes les références" : "See all references"}
+            </a>
+          </div>
+
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Calendar size={24} /> Testez Vos Connaissances
+              <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
             </h2>
             <ChapterQuiz questions={chapter6Quiz} />
           </GlassCard>
@@ -701,7 +704,7 @@ const Index = () => {
         <div className="md:w-3/5 flex flex-col gap-8">
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Globe size={24} /> Faits Historiques
+              <Globe size={24} /> {language === "french" ? "Faits Historiques" : "Historical Facts"}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {chapter7Facts.map((fact) => (
@@ -714,9 +717,18 @@ const Index = () => {
             </div>
           </GlassCard>
 
+          <VocabularyPopup vocabulary={chapter7Vocabulary} language={language} />
+
+          {/* Note: Moved References to separate page - link here */}
+          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
+            <a href="/references" target="_blank" rel="noopener noreferrer">
+              {language === "french" ? "Voir toutes les références" : "See all references"}
+            </a>
+          </div>
+
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Calendar size={24} /> Testez Vos Connaissances
+              <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
             </h2>
             <ChapterQuiz questions={chapter7Quiz} />
           </GlassCard>
@@ -742,7 +754,7 @@ const Index = () => {
         <div className="md:w-3/5 flex flex-col gap-8">
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <History size={24} /> Faits Historiques
+              <History size={24} /> {language === "french" ? "Faits Historiques" : "Historical Facts"}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {chapter8Facts.map((fact) => (
@@ -755,9 +767,18 @@ const Index = () => {
             </div>
           </GlassCard>
 
+          <VocabularyPopup vocabulary={chapter8Vocabulary} language={language} />
+
+          {/* Note: Moved References to separate page - link here */}
+          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
+            <a href="/references" target="_blank" rel="noopener noreferrer">
+              {language === "french" ? "Voir toutes les références" : "See all references"}
+            </a>
+          </div>
+
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Calendar size={24} /> Testez Vos Connaissances
+              <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
             </h2>
             <ChapterQuiz questions={chapter8Quiz} />
           </GlassCard>

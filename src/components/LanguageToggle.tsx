@@ -1,25 +1,14 @@
 
-import React, { useEffect, useState } from "react"
-import { useBilingualToggle } from "@/hooks/useBilingualToggle"
+import React from "react";
+import { useLanguage } from "./LanguageContext";
 
 const FLAGS = {
   french: "🇫🇷",
   english: "🇬🇧",
-}
+};
 
 const LanguageToggle = () => {
-  const { language, toggleLanguage } = useBilingualToggle(
-    // Persist initial language from localStorage or default to french
-    (typeof window !== "undefined" &&
-    (localStorage.getItem("language") === "english" || localStorage.getItem("language") === "french")
-      ? (localStorage.getItem("language") as "french" | "english")
-      : "french")
-  )
-
-  // Save language in localStorage
-  useEffect(() => {
-    localStorage.setItem("language", language)
-  }, [language])
+  const { language, toggleLanguage } = useLanguage();
 
   return (
     <button
@@ -30,8 +19,7 @@ const LanguageToggle = () => {
       <span className="text-2xl">{FLAGS[language]}</span>
       <span className="font-medium">{language === "french" ? "Français" : "English"}</span>
     </button>
-  )
-}
+  );
+};
 
-export default LanguageToggle
-
+export default LanguageToggle;
