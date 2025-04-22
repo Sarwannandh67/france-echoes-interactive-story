@@ -1,0 +1,114 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* French flag palette */
+  --royal-blue: #0055A4;
+  --pure-white: #FFFFFF;
+  --crimson-red: #EF4135;
+
+  --background: var(--pure-white);
+  --foreground: #333333;
+
+  --primary: var(--royal-blue);
+  --primary-foreground: var(--pure-white);
+  --accent: var(--crimson-red);
+  --accent-foreground: var(--pure-white);
+  --muted: #f7f7f7;
+  --muted-foreground: #888;
+}
+
+/* Glass card shadows in theme colors */
+.shadow-crimson-red\/30 {
+  box-shadow: 0 8px 32px 0 rgba(239, 65, 53, 0.25), 0 0 10px 2px rgba(0, 85, 164, 0.2);
+}
+
+/* Glow shadow for timeline */
+.shadow-glow {
+  box-shadow: 0 0 12px 3px rgba(255, 255, 255, 0.8);
+}
+
+/* Keyframes and animations */
+@keyframes wave {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(-20%) translateY(5%);
+  }
+}
+
+@keyframes wave-delay {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(15%) translateY(-5%);
+  }
+}
+
+@keyframes wave-delay2 {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(-10%) translateY(3%);
+  }
+}
+
+.animate-wave {
+  animation: wave 6s ease-in-out infinite;
+}
+
+.animate-wave-delay {
+  animation: wave-delay 6s ease-in-out infinite;
+}
+
+.animate-wave-delay2 {
+  animation: wave-delay2 6s ease-in-out infinite;
+}
+
+.animate-fade-in-down {
+  animation: fadeDown 1s ease forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bg-royal-blue {
+  background-color: var(--royal-blue);
+}
+
+.bg-crimson-red {
+  background-color: var(--crimson-red);
+}
+
+.text-crimson-red {
+  color: var(--crimson-red);
+}
+

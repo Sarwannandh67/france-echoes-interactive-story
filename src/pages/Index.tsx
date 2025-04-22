@@ -1,10 +1,12 @@
-
-import React from "react";
+import React, { useState } from "react";
 import ChapterIntro from "../components/ChapterIntro";
 import ChapterVideo from "../components/ChapterVideo";
 import HoverFactCard from "../components/HoverFactCard";
 import ChapterQuiz from "../components/ChapterQuiz";
-import GlassCard from "../components/GlassCard";
+import GlassCard from "../components/ui/glass-card";
+import LanguageToggle from "../components/LanguageToggle";
+import VocabularyPopup from "../components/VocabularyPopup";
+import ReferenceSection from "../components/ReferenceSection";
 import { BookOpen, Calendar, User, History, Crown, Flag, Globe, Trophy } from "lucide-react";
 
 // Facts and quizzes for each chapter
@@ -279,16 +281,122 @@ const chapter8Quiz = [
   },
 ];
 
+// Vocabulary terms for chapters example:
+const chapter1Vocabulary = [
+  { term: "chevalier", translation: "knight", audioSrc: "/audio/chevalier.mp3" },
+  { term: "Gaulois", translation: "Gauls" },
+  { term: "conquête", translation: "conquest" },
+];
+// ... (similarly define vocabulary arrays for other chapters)
+
+const chapter2Vocabulary = [
+  { term: "Jeanne d'Arc", translation: "Joan of Arc", audioSrc: "/audio/jeannedarc.mp3" },
+  { term: "guerre de Cent Ans", translation: "Hundred Years' War" },
+  { term: "armure", translation: "armor" },
+];
+
+const chapter3Vocabulary = [
+  { term: "Renaissance", translation: "Renaissance" },
+  { term: "humanisme", translation: "humanism" },
+  { term: "artiste", translation: "artist" },
+];
+const chapter4Vocabulary = [
+  { term: "Roi Soleil", translation: "Sun King" },
+  { term: "Versailles", translation: "Versailles" },
+  { term: "monarchie absolue", translation: "absolute monarchy" },
+];
+
+const chapter5Vocabulary = [
+  { term: "Napoléon", translation: "Napoleon" },
+  { term: "Waterloo", translation: "Waterloo" },
+  { term: "empereur", translation: "emperor" },
+];
+
+const chapter6Vocabulary = [
+  { term: "colonisation", translation: "colonization" },
+  { term: "décolonisation", translation: "decolonization" },
+  { term: "Algérie", translation: "Algeria" },
+];
+
+const chapter7Vocabulary = [
+  { term: "Première Guerre mondiale", translation: "World War 1" },
+  { term: "Résistance", translation: "Resistance" },
+  { term: "Seconde Guerre mondiale", translation: "World War 2" },
+];
+
+const chapter8Vocabulary = [
+  { term: "Mai 1968", translation: "May 1968" },
+  { term: "manifestations", translation: "protests" },
+  { term: "slogan", translation: "slogan" },
+];
+
+// References example per chapter (simplified w/ logos)
+const wikiLogo = "/logos/wikipedia.png";
+const britLogo = "/logos/britannica.png";
+const historyLogo = "/logos/historycom.png";
+
+const chapter1References = [
+  {
+    name: "Wikipedia",
+    url: "https://en.wikipedia.org/wiki/Julius_Caesar",
+    citation: "\"Julius Caesar.\" Wikipedia, The Free Encyclopedia.",
+    logoUrl: wikiLogo,
+  },
+  {
+    name: "Britannica",
+    url: "https://www.britannica.com/biography/Julius-Caesar",
+    citation: "\"Julius Caesar.\" Encyclopedia Britannica.",
+    logoUrl: britLogo,
+  },
+  {
+    name: "History.com",
+    url: "https://www.history.com/topics/ancient-rome/julius-caesar",
+    citation: "\"Julius Caesar Biography\" History.com Editors.",
+    logoUrl: historyLogo,
+  },
+];
+// ... similarly define references for chapters 2-8...
+
 const Index = () => {
+  const [language, setLanguage] = useState<"french" | "english">(
+    (typeof window !== "undefined" && (localStorage.getItem("language") === "english" || localStorage.getItem("language") === "french")
+      ? (localStorage.getItem("language") as "french" | "english")
+      : "french")
+  );
+
+  // Sync language with storage, and provide setter for LanguageToggle usage
+  React.useEffect(() => {
+    localStorage.setItem("language", language)
+  }, [language])
+
+  // Override LanguageToggle to lift state up
+  const LanguageToggleControlled = () => {
+    return (
+      <button
+        onClick={() => setLanguage(language === "french" ? "english" : "french")}
+        aria-label="Toggle language"
+        className="flex items-center gap-2 rounded-md border border-gray-300 bg-white dark:bg-gray-800 px-3 py-1 text-sm shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors select-none"
+      >
+        <span className="text-2xl">{language === "french" ? "🇫🇷" : "🇬🇧"}</span>
+        <span className="font-medium">{language === "french" ? "Français" : "English"}</span>
+      </button>
+    )
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#D3E4FD]/60 via-white to-[#F1F0FB]/90 p-6 sm:p-10 md:p-16 flex flex-col items-center">
-      <header className="mb-16 max-w-5xl w-full text-center">
-        <h1 className="font-playfair text-5xl md:text-6xl font-bold text-charcoalGray drop-shadow-md mb-2">
-          Echoes of France
-        </h1>
-        <p className="text-lg md:text-xl text-gray-700">
-          A Journey Through French History
-        </p>
+    <div className="min-h-screen bg-gradient-to-b from-[#D3E4FD]/60 via-white to-[#F1F0FB]/90 p-6 sm:p-10 md:p-16 flex flex-col items-center text-charcoalGray">
+      <header className="mb-16 w-full max-w-5xl flex flex-row items-center justify-between">
+        <div>
+          <h1 className="font-playfair text-5xl md:text-6xl font-bold drop-shadow-md">
+            Echoes of France
+          </h1>
+          <p className="text-lg md:text-xl text-gray-700">
+            {language === "french" ? "Un voyage à travers l’histoire de France" : "A Journey Through French History"}
+          </p>
+        </div>
+        <div>
+          <LanguageToggleControlled />
+        </div>
       </header>
 
       {/* Chapter 1 Section */}
@@ -298,8 +406,16 @@ const Index = () => {
       >
         <div className="md:w-2/5 flex flex-col gap-6">
           <ChapterIntro
-            title="Chapitre 1: La conquête de la Gaule par Jules César"
-            ambientText="Voyage dans les racines antiques de la France..."
+            title={
+              language === "french"
+                ? "Chapitre 1: La conquête de la Gaule par Jules César"
+                : "Chapter 1: Julius Caesar's Conquest of Gaul"
+            }
+            ambientText={
+              language === "french"
+                ? "Voyage dans les racines antiques de la France..."
+                : "Journey through the ancient roots of France..."
+            }
           />
           <ChapterVideo
             videoUrl="https://www.youtube.com/embed/RAZPKaZj2gM"
@@ -309,25 +425,54 @@ const Index = () => {
 
         <div className="md:w-3/5 flex flex-col gap-8">
           <GlassCard className="p-6">
-            <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <BookOpen size={24} /> Faits Historiques
+            <h2 className="flex items-center gap-2 text-2xl font-semibold mb-4">
+              <BookOpen size={24} />{" "}
+              {language === "french" ? "Faits Historiques" : "Historical Facts"}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {chapter1Facts.map((fact) => (
-                <HoverFactCard
-                  key={fact.id}
-                  french={fact.french}
-                  english={fact.english}
-                />
-              ))}
+              {["Jules César a conquis la Gaule entre 58 et 50 avant J.-C.","La bataille d'Alésia en 52 avant J.-C. fut décisive pour la conquête romaine.", "La Gaule était habitée par diverses tribus celtiques avant la conquête."]
+                .map((fact, idx) => (
+                  <HoverFactCard
+                    key={idx}
+                    french={["Jules César a conquis la Gaule entre 58 et 50 avant J.-C.","La bataille d'Alésia en 52 avant J.-C. fut décisive pour la conquête romaine.", "La Gaule était habitée par diverses tribus celtiques avant la conquête."][idx]}
+                    english={["Julius Caesar conquered Gaul between 58 and 50 BC.","The Battle of Alesia in 52 BC was decisive in the Roman conquest.","Gaul was inhabited by various Celtic tribes before conquest."][idx]}
+                  />
+                ))}
             </div>
           </GlassCard>
 
-          <GlassCard className="p-6">
-            <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
-              <Calendar size={24} /> Testez Vos Connaissances
+          <VocabularyPopup vocabulary={chapter1Vocabulary} language={language} />
+
+          <ReferenceSection references={chapter1References} />
+
+          <GlassCard className="p-6 mt-6">
+            <h2 className="flex items-center gap-2 text-2xl font-semibold mb-4">
+              <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
             </h2>
-            <ChapterQuiz questions={chapter1Quiz} />
+            <ChapterQuiz
+              questions={[
+                {
+                  question: language === "french" ? "Quand a eu lieu la bataille d'Alésia?" : "When did the battle of Alesia take place?",
+                  options: [
+                    "52 avant J.-C.",
+                    "43 après J.-C.",
+                    "30 avant J.-C.",
+                    "60 après J.-C.",
+                  ],
+                  correctOptionIndex: 0,
+                },
+                {
+                  question: language === "french" ? "Qui a dirigé la conquête de la Gaule?" : "Who led the conquest of Gaul?",
+                  options: [
+                    "Vercingétorix",
+                    "Jules César",
+                    "Napoléon",
+                    "Charlemagne",
+                  ],
+                  correctOptionIndex: 1,
+                },
+              ]}
+            />
           </GlassCard>
         </div>
       </section>
@@ -627,4 +772,3 @@ const Index = () => {
 };
 
 export default Index;
-
