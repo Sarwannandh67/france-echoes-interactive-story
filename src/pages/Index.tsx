@@ -333,24 +333,22 @@ const Index = () => {
   const { language } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-100 via-white to-purple-200 p-6 sm:p-10 md:p-16 flex flex-col items-center text-charcoalGray dark:text-gray-100">
-      <header className="mb-16 w-full max-w-5xl flex flex-row items-center justify-between">
-        <div>
-          <h1 className="font-playfair text-5xl md:text-6xl font-bold drop-shadow-md">
-            Echoes of France
-          </h1>
-          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300">
-            {language === "french"
-              ? "Un voyage à travers l'histoire de France"
-              : "A Journey Through French History"}
-          </p>
-        </div>
+    <div className="min-h-screen pt-24 bg-gradient-to-b from-purple-100 via-white to-purple-200 p-4 sm:p-8 md:p-12 flex flex-col items-center text-charcoalGray dark:text-gray-100">
+      <header className="mb-12 w-full max-w-5xl flex flex-col items-center text-center">
+        <h1 className="font-playfair text-5xl md:text-6xl font-bold drop-shadow-md mb-3">
+          Echoes of France
+        </h1>
+        <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl">
+          {language === "french"
+            ? "Un voyage à travers l'histoire de France"
+            : "A Journey Through French History"}
+        </p>
       </header>
 
       {/* Chapter 1 Section */}
       <section
         id="chapter-1"
-        className="max-w-5xl w-full flex flex-col md:flex-row gap-10 md:gap-16"
+        className="max-w-5xl w-full flex flex-col md:flex-row gap-8 md:gap-12"
       >
         <div className="md:w-2/5 flex flex-col gap-6">
           <ChapterIntro
@@ -389,13 +387,6 @@ const Index = () => {
           </GlassCard>
 
           <VocabularyPopup vocabulary={chapter1Vocabulary} language={language} />
-
-          {/* Note: Moved References to separate page - link here */}
-          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
-            <a href="/references" target="_blank" rel="noopener noreferrer">
-              {language === "french" ? "Voir toutes les références" : "See all references"}
-            </a>
-          </div>
 
           <GlassCard className="p-6 mt-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold mb-4">
@@ -438,7 +429,7 @@ const Index = () => {
       {/* Chapter 2 Section */}
       <section
         id="chapter-2"
-        className="max-w-5xl w-full flex flex-col md:flex-row gap-10 md:gap-16 mt-20"
+        className="max-w-5xl w-full flex flex-col md:flex-row gap-8 md:gap-12 mt-20"
       >
         <div className="md:w-2/5 flex flex-col gap-6">
           <ChapterIntro
@@ -469,13 +460,6 @@ const Index = () => {
 
           <VocabularyPopup vocabulary={chapter2Vocabulary} language={language} />
 
-          {/* Note: Moved References to separate page - link here */}
-          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
-            <a href="/references" target="_blank" rel="noopener noreferrer">
-              {language === "french" ? "Voir toutes les références" : "See all references"}
-            </a>
-          </div>
-
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
               <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
@@ -488,7 +472,7 @@ const Index = () => {
       {/* Chapter 3 Section */}
       <section
         id="chapter-3"
-        className="max-w-5xl w-full flex flex-col md:flex-row gap-10 md:gap-16 mt-20"
+        className="max-w-5xl w-full flex flex-col md:flex-row gap-8 md:gap-12 mt-20"
       >
         <div className="md:w-2/5 flex flex-col gap-6">
           <ChapterIntro
@@ -519,13 +503,6 @@ const Index = () => {
 
           <VocabularyPopup vocabulary={chapter3Vocabulary} language={language} />
 
-          {/* Note: Moved References to separate page - link here */}
-          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
-            <a href="/references" target="_blank" rel="noopener noreferrer">
-              {language === "french" ? "Voir toutes les références" : "See all references"}
-            </a>
-          </div>
-
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
               <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
@@ -538,7 +515,7 @@ const Index = () => {
       {/* Chapter 4 Section */}
       <section
         id="chapter-4"
-        className="max-w-5xl w-full flex flex-col md:flex-row gap-10 md:gap-16 mt-20"
+        className="max-w-5xl w-full flex flex-col md:flex-row gap-8 md:gap-12 mt-20"
       >
         <div className="md:w-2/5 flex flex-col gap-6">
           <ChapterIntro
@@ -569,13 +546,6 @@ const Index = () => {
 
           <VocabularyPopup vocabulary={chapter4Vocabulary} language={language} />
 
-          {/* Note: Moved References to separate page - link here */}
-          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
-            <a href="/references" target="_blank" rel="noopener noreferrer">
-              {language === "french" ? "Voir toutes les références" : "See all references"}
-            </a>
-          </div>
-
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
               <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
@@ -588,7 +558,7 @@ const Index = () => {
       {/* Chapter 5 Section */}
       <section
         id="chapter-5"
-        className="max-w-5xl w-full flex flex-col md:flex-row gap-10 md:gap-16 mt-20"
+        className="max-w-5xl w-full flex flex-col md:flex-row gap-8 md:gap-12 mt-20"
       >
         <div className="md:w-2/5 flex flex-col gap-6">
           <ChapterIntro
@@ -619,13 +589,6 @@ const Index = () => {
 
           <VocabularyPopup vocabulary={chapter5Vocabulary} language={language} />
 
-          {/* Note: Moved References to separate page - link here */}
-          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
-            <a href="/references" target="_blank" rel="noopener noreferrer">
-              {language === "french" ? "Voir toutes les références" : "See all references"}
-            </a>
-          </div>
-
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
               <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
@@ -638,7 +601,7 @@ const Index = () => {
       {/* Chapter 6 Section */}
       <section
         id="chapter-6"
-        className="max-w-5xl w-full flex flex-col md:flex-row gap-10 md:gap-16 mt-20"
+        className="max-w-5xl w-full flex flex-col md:flex-row gap-8 md:gap-12 mt-20"
       >
         <div className="md:w-2/5 flex flex-col gap-6">
           <ChapterIntro
@@ -669,13 +632,6 @@ const Index = () => {
 
           <VocabularyPopup vocabulary={chapter6Vocabulary} language={language} />
 
-          {/* Note: Moved References to separate page - link here */}
-          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
-            <a href="/references" target="_blank" rel="noopener noreferrer">
-              {language === "french" ? "Voir toutes les références" : "See all references"}
-            </a>
-          </div>
-
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
               <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
@@ -688,7 +644,7 @@ const Index = () => {
       {/* Chapter 7 Section */}
       <section
         id="chapter-7"
-        className="max-w-5xl w-full flex flex-col md:flex-row gap-10 md:gap-16 mt-20"
+        className="max-w-5xl w-full flex flex-col md:flex-row gap-8 md:gap-12 mt-20"
       >
         <div className="md:w-2/5 flex flex-col gap-6">
           <ChapterIntro
@@ -719,13 +675,6 @@ const Index = () => {
 
           <VocabularyPopup vocabulary={chapter7Vocabulary} language={language} />
 
-          {/* Note: Moved References to separate page - link here */}
-          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
-            <a href="/references" target="_blank" rel="noopener noreferrer">
-              {language === "french" ? "Voir toutes les références" : "See all references"}
-            </a>
-          </div>
-
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
               <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
@@ -738,7 +687,7 @@ const Index = () => {
       {/* Chapter 8 Section */}
       <section
         id="chapter-8"
-        className="max-w-5xl w-full flex flex-col md:flex-row gap-10 md:gap-16 mt-20 mb-20"
+        className="max-w-5xl w-full flex flex-col md:flex-row gap-8 md:gap-12 mt-20 mb-20"
       >
         <div className="md:w-2/5 flex flex-col gap-6">
           <ChapterIntro
@@ -769,13 +718,6 @@ const Index = () => {
 
           <VocabularyPopup vocabulary={chapter8Vocabulary} language={language} />
 
-          {/* Note: Moved References to separate page - link here */}
-          <div className="mt-4 text-sm underline text-primary cursor-pointer max-w-xs">
-            <a href="/references" target="_blank" rel="noopener noreferrer">
-              {language === "french" ? "Voir toutes les références" : "See all references"}
-            </a>
-          </div>
-
           <GlassCard className="p-6">
             <h2 className="flex items-center gap-2 text-2xl font-semibold text-charcoalGray mb-4">
               <Calendar size={24} /> {language === "french" ? "Testez Vos Connaissances" : "Test Your Knowledge"}
@@ -785,7 +727,7 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="mt-20 text-gray-500 text-sm">
+      <footer className="mt-20 mb-10 text-gray-500 text-sm text-center">
         &copy; 2025 Echoes of France - Interactive Educational Experience
       </footer>
     </div>

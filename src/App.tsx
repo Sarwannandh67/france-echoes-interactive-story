@@ -10,6 +10,8 @@ import DeveloperCreditsPage from "./pages/DeveloperCredits";
 import ReferencesPage from "./pages/References";
 import Navbar from "./components/Navbar";
 import { LanguageProvider } from "./components/LanguageContext";
+import Timeline from "./pages/Timeline";
+import Gallery from "./pages/Gallery";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,8 @@ const App = () => (
           <Navbar />
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/timeline" element={<Timeline />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/credits" element={<DeveloperCreditsPage />} />
             <Route path="/references" element={<ReferencesPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
@@ -35,3 +39,4 @@ const App = () => (
 );
 
 export default App;
+
