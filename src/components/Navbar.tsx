@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon, Globe, ChevronDown, BookOpen } from "lucide-react";
+import { Menu, X, Globe, ChevronDown, BookOpen } from "lucide-react";
 import { useLanguage } from "./LanguageContext";
-import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const { language, toggleLanguage } = useLanguage();
-  const { theme, setTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isChaptersOpen, setIsChaptersOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,15 +58,15 @@ const Navbar = () => {
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md' 
-          : 'bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm'
+          ? 'bg-[#0B1120]/90 backdrop-blur-md shadow-md' 
+          : 'bg-[#0B1120]/70 backdrop-blur-sm'
       }`}>
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
             {/* Logo/Home */}
             <NavLink
               to="/"
-              className="text-lg sm:text-xl font-bold text-blue-600 dark:text-blue-400 font-playfair hover:text-blue-700 dark:hover:text-blue-300 transition-colors truncate max-w-[200px]"
+              className="text-lg sm:text-xl font-bold text-white font-playfair hover:text-blue-400 transition-colors truncate max-w-[200px]"
             >
               {language === 'french' ? 'Échos de France' : 'Echoes of France'}
             </NavLink>
@@ -83,8 +81,8 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     `text-sm lg:text-base px-2 py-1 rounded-md ${
                       isActive
-                        ? 'text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/30'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30'
+                        ? 'text-blue-400 font-semibold bg-white/5'
+                        : 'text-gray-300 hover:text-blue-400 hover:bg-white/5'
                     } transition-all`
                   }
                 >
@@ -97,7 +95,7 @@ const Navbar = () => {
                 <div className="relative">
                   <button
                     onClick={() => setIsChaptersOpen(!isChaptersOpen)}
-                    className="flex items-center gap-1 text-sm lg:text-base px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all"
+                    className="flex items-center gap-1 text-sm lg:text-base px-2 py-1 rounded-md text-gray-300 hover:text-blue-400 hover:bg-white/5 transition-all"
                   >
                     <BookOpen size={16} />
                     <span className="hidden sm:inline">
@@ -112,13 +110,13 @@ const Navbar = () => {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 overflow-hidden"
+                        className="absolute right-0 mt-2 w-56 bg-[#0B1120] rounded-lg shadow-lg border border-white/10 py-1 overflow-hidden"
                       >
                         {chapters.map((chapter) => (
                           <button
                             key={chapter.id}
                             onClick={() => scrollToChapter(chapter.id)}
-                            className="block w-full text-left px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800/50 transition-colors"
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:text-blue-400 hover:bg-white/5 transition-colors"
                           >
                             {language === 'french' ? chapter.french : chapter.english}
                           </button>
@@ -135,7 +133,7 @@ const Navbar = () => {
               {/* Language Toggle */}
               <button
                 onClick={toggleLanguage}
-                className="flex items-center gap-2 p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-md transition-all"
+                className="flex items-center gap-2 p-2 text-gray-300 hover:text-blue-400 hover:bg-white/5 rounded-md transition-all"
                 aria-label="Toggle Language"
               >
                 <Globe size={18} className="sm:w-5 sm:h-5" />
@@ -144,23 +142,10 @@ const Navbar = () => {
                 </span>
               </button>
 
-              {/* Theme Toggle */}
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-md transition-all"
-                aria-label="Toggle Theme"
-              >
-                {theme === 'dark' ? (
-                  <Sun size={18} className="sm:w-5 sm:h-5" />
-                ) : (
-                  <Moon size={18} className="sm:w-5 sm:h-5" />
-                )}
-              </button>
-
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-md transition-all"
+                className="md:hidden p-2 text-gray-300 hover:text-blue-400 hover:bg-white/5 rounded-md transition-all"
                 aria-label="Toggle Menu"
               >
                 {isMenuOpen ? (
@@ -182,9 +167,9 @@ const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-14 sm:top-16 z-40 md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-hidden"
+            className="fixed inset-x-0 top-14 sm:top-16 z-40 md:hidden bg-[#0B1120] border-b border-white/10 overflow-hidden"
           >
-            <div className="px-3 py-2 divide-y divide-gray-100 dark:divide-gray-800">
+            <div className="px-3 py-2 divide-y divide-white/10">
               {/* Main Navigation Links */}
               <div className="py-2">
                 {mainLinks.map((link) => (
@@ -194,8 +179,8 @@ const Navbar = () => {
                     className={({ isActive }) =>
                       `block w-full text-left px-4 py-3 rounded-md ${
                         isActive
-                          ? 'text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/30'
-                          : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30'
+                          ? 'text-blue-400 font-semibold bg-white/5'
+                          : 'text-gray-300 hover:text-blue-400 hover:bg-white/5'
                       } transition-all`
                     }
                   >
@@ -207,14 +192,14 @@ const Navbar = () => {
               {/* Chapter Links (only shown on home page) */}
               {location.pathname === '/' && (
                 <div className="py-2">
-                  <div className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400">
+                  <div className="px-4 py-2 text-sm font-semibold text-gray-400">
                     {language === 'french' ? 'Chapitres' : 'Chapters'}
                   </div>
                   {chapters.map((chapter) => (
                     <button
                       key={chapter.id}
                       onClick={() => scrollToChapter(chapter.id)}
-                      className="block w-full text-left px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all rounded-md"
+                      className="block w-full text-left px-4 py-3 text-gray-300 hover:text-blue-400 hover:bg-white/5 transition-all rounded-md"
                     >
                       {language === 'french' ? chapter.french : chapter.english}
                     </button>
