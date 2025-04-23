@@ -1,42 +1,234 @@
-
-import React from "react";
-import { NavLink } from "react-router-dom";
-import LanguageToggle from "./LanguageToggle";
-
-const linkClasses = ({ isActive }: { isActive: boolean }) =>
-  `inline-block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-    isActive
-      ? "bg-primary text-primary-foreground"
-      : "text-gray-700 hover:bg-primary hover:text-primary-foreground"
-  }`;
+import React, { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import { Menu, X, Sun, Moon, Globe, ChevronDown, BookOpen } from "lucide-react";
+import { useLanguage } from "./LanguageContext";
+import { useTheme } from "next-themes";
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
+  const { language, toggleLanguage } = useLanguage();
+  const { theme, setTheme } = useTheme();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isChaptersOpen, setIsChaptersOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsChaptersOpen(false);
+  }, [location.pathname]);
+
+  const chapters = [
+    { id: 'chapter-1', french: 'La conquête de la Gaule', english: 'Conquest of Gaul' },
+    { id: 'chapter-2', french: 'Jeanne d\'Arc', english: 'Joan of Arc' },
+    { id: 'chapter-3', french: 'La Renaissance', english: 'The Renaissance' },
+    { id: 'chapter-4', french: 'Louis XIV', english: 'Louis XIV' },
+    { id: 'chapter-5', french: 'L\'Épopée Napoléonienne', english: 'Napoleonic Era' },
+    { id: 'chapter-6', french: 'La Colonisation', english: 'Colonization' },
+    { id: 'chapter-7', french: 'Les Guerres Mondiales', english: 'World Wars' },
+    { id: 'chapter-8', french: 'Mai 1968', english: 'May 1968' },
+  ];
+
+  const mainLinks = [
+    { path: '/', french: 'Accueil', english: 'Home' },
+    { path: '/timeline', french: 'Chronologie', english: 'Timeline' },
+    { path: '/about', french: 'À Propos', english: 'About' },
+    { path: '/gallery', french: 'Galerie', english: 'Gallery' },
+    { path: '/credits', french: 'Développeurs', english: 'Developers' },
+  ];
+
+  const scrollToChapter = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
+      setIsChaptersOpen(false);
+    }
+  };
+
   return (
-    <nav className="w-full bg-white dark:bg-gray-900 shadow-md fixed top-0 z-50">
-      <div className="container mx-auto flex flex-wrap items-center justify-between py-3 px-4 md:px-6">
-        <NavLink to="/" className="text-2xl font-bold text-primary select-none">
-          Echoes of France
-        </NavLink>
-        <div className="flex items-center space-x-4 md:space-x-6 mt-2 md:mt-0">
-          <NavLink to="/" className={linkClasses}>
-            {({ isActive }) => (isActive ? "Accueil" : "Home")}
-          </NavLink>
-          <NavLink to="/timeline" className={linkClasses}>
-            {({ isActive }) => (isActive ? "Chronologie" : "Timeline")}
-          </NavLink>
-          <NavLink to="/gallery" className={linkClasses}>
-            {({ isActive }) => (isActive ? "Galerie" : "Gallery")}
-          </NavLink>
-          <NavLink to="/references" className={linkClasses}>
-            {({ isActive }) => (isActive ? "Références" : "References")}
-          </NavLink>
-          <NavLink to="/credits" className={linkClasses}>
-            {({ isActive }) => (isActive ? "Crédits" : "Credits")}
-          </NavLink>
-          <LanguageToggle />
+    <>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md' 
+          : 'bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm'
+      }`}>
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16">
+            {/* Logo/Home */}
+            <NavLink
+              to="/"
+              className="text-lg sm:text-xl font-bold text-blue-600 dark:text-blue-400 font-playfair hover:text-blue-700 dark:hover:text-blue-300 transition-colors truncate max-w-[200px]"
+            >
+              {language === 'french' ? 'Échos de France' : 'Echoes of France'}
+            </NavLink>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-4 lg:gap-6">
+              {/* Main Navigation Links */}
+              {mainLinks.map((link) => (
+                <NavLink
+                  key={link.path}
+                  to={link.path}
+                  className={({ isActive }) =>
+                    `text-sm lg:text-base px-2 py-1 rounded-md ${
+                      isActive
+                        ? 'text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/30'
+                        : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30'
+                    } transition-all`
+                  }
+                >
+                  {language === 'french' ? link.french : link.english}
+                </NavLink>
+              ))}
+
+              {/* Chapters Dropdown */}
+              {location.pathname === '/' && (
+                <div className="relative">
+                  <button
+                    onClick={() => setIsChaptersOpen(!isChaptersOpen)}
+                    className="flex items-center gap-1 text-sm lg:text-base px-2 py-1 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all"
+                  >
+                    <BookOpen size={16} />
+                    <span className="hidden sm:inline">
+                      {language === 'french' ? 'Chapitres' : 'Chapters'}
+                    </span>
+                    <ChevronDown size={14} className={`transform transition-transform ${isChaptersOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {isChaptersOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 overflow-hidden"
+                      >
+                        {chapters.map((chapter) => (
+                          <button
+                            key={chapter.id}
+                            onClick={() => scrollToChapter(chapter.id)}
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800/50 transition-colors"
+                          >
+                            {language === 'french' ? chapter.french : chapter.english}
+                          </button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
+            </div>
+
+            {/* Right Side Controls */}
+            <div className="flex items-center gap-2 sm:gap-4">
+              {/* Language Toggle */}
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center gap-2 p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-md transition-all"
+                aria-label="Toggle Language"
+              >
+                <Globe size={18} className="sm:w-5 sm:h-5" />
+                <span className="text-sm font-medium">
+                  {language === 'french' ? 'EN' : 'FR'}
+                </span>
+              </button>
+
+              {/* Theme Toggle */}
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-md transition-all"
+                aria-label="Toggle Theme"
+              >
+                {theme === 'dark' ? (
+                  <Sun size={18} className="sm:w-5 sm:h-5" />
+                ) : (
+                  <Moon size={18} className="sm:w-5 sm:h-5" />
+                )}
+              </button>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="md:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-md transition-all"
+                aria-label="Toggle Menu"
+              >
+                {isMenuOpen ? (
+                  <X size={18} className="sm:w-5 sm:h-5" />
+                ) : (
+                  <Menu size={18} className="sm:w-5 sm:h-5" />
+                )}
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 top-14 sm:top-16 z-40 md:hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 overflow-hidden"
+          >
+            <div className="px-3 py-2 divide-y divide-gray-100 dark:divide-gray-800">
+              {/* Main Navigation Links */}
+              <div className="py-2">
+                {mainLinks.map((link) => (
+                  <NavLink
+                    key={link.path}
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `block w-full text-left px-4 py-3 rounded-md ${
+                        isActive
+                          ? 'text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/30'
+                          : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30'
+                      } transition-all`
+                    }
+                  >
+                    {language === 'french' ? link.french : link.english}
+                  </NavLink>
+                ))}
+              </div>
+
+              {/* Chapter Links (only shown on home page) */}
+              {location.pathname === '/' && (
+                <div className="py-2">
+                  <div className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400">
+                    {language === 'french' ? 'Chapitres' : 'Chapters'}
+                  </div>
+                  {chapters.map((chapter) => (
+                    <button
+                      key={chapter.id}
+                      onClick={() => scrollToChapter(chapter.id)}
+                      className="block w-full text-left px-4 py-3 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all rounded-md"
+                    >
+                      {language === 'french' ? chapter.french : chapter.english}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Spacer to prevent content from hiding under fixed navbar */}
+      <div className="h-14 sm:h-16"></div>
+    </>
   );
 };
 

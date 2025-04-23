@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 interface VocabularyItem {
@@ -23,13 +22,13 @@ const VocabularyPopup: React.FC<VocabularyPopupProps> = ({ vocabulary, language 
 
   return (
     <>
-      <div className="flex flex-wrap gap-3 mt-4">
+      <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3 mt-4">
         {vocabulary.map((item, idx) => (
           <button
             key={idx}
             type="button"
             onClick={() => setSelectedTerm(item)}
-            className="cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-1 text-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 transition-colors select-none"
+            className="cursor-pointer rounded-md border border-gray-300 bg-white px-2 sm:px-3 py-1.5 text-xs sm:text-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 transition-colors select-none"
             aria-label={`Vocabulary term ${item.term}`}
           >
             {language === "french" ? item.term : item.translation}
@@ -46,34 +45,38 @@ const VocabularyPopup: React.FC<VocabularyPopupProps> = ({ vocabulary, language 
           onClick={() => setSelectedTerm(null)}
         >
           <div
-            className="bg-white dark:bg-gray-800 rounded-md p-6 max-w-md w-full shadow-lg"
+            className="bg-white dark:bg-gray-800 rounded-lg p-4 sm:p-6 max-w-[90vw] sm:max-w-md w-full shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3
-              id="vocabPopupTitle"
-              className="text-xl font-semibold mb-2 text-charcoalGray dark:text-white"
-            >
-              {language === "french"
-                ? `${selectedTerm.term} - ${selectedTerm.translation}`
-                : `${selectedTerm.translation} - ${selectedTerm.term}`}
-            </h3>
-            {selectedTerm.audioSrc && (
-              <button
-                type="button"
-                onClick={() => playAudio(selectedTerm.audioSrc)}
-                className="inline-flex items-center gap-2 px-3 py-1 border border-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                aria-label="Play pronunciation audio"
+            <div className="flex flex-col space-y-4">
+              <h3
+                id="vocabPopupTitle"
+                className="text-lg sm:text-xl font-semibold text-charcoalGray dark:text-white"
               >
-                ▶️ Play Audio
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={() => setSelectedTerm(null)}
-              className="mt-4 rounded bg-crimson-red text-white px-4 py-2 hover:bg-crimson-red/90 transition-colors"
-            >
-              Close
-            </button>
+                {language === "french"
+                  ? `${selectedTerm.term} - ${selectedTerm.translation}`
+                  : `${selectedTerm.translation} - ${selectedTerm.term}`}
+              </h3>
+              <div className="flex flex-col sm:flex-row gap-3">
+                {selectedTerm.audioSrc && (
+                  <button
+                    type="button"
+                    onClick={() => playAudio(selectedTerm.audioSrc)}
+                    className="inline-flex items-center justify-center gap-2 px-3 py-1.5 border border-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    aria-label="Play pronunciation audio"
+                  >
+                    <span role="img" aria-label="play">▶️</span> Play Audio
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setSelectedTerm(null)}
+                  className="rounded bg-crimson-red text-white px-4 py-1.5 hover:bg-crimson-red/90 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
