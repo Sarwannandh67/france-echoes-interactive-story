@@ -1,4 +1,3 @@
-
 import React from "react";
 
 interface Developer {
@@ -12,32 +11,40 @@ interface Developer {
 
 const developers: Developer[] = [
   {
-    name: "Alice Martin",
-    role: "Design",
+    name: "Sarwan Nandh",
+    role: "Design Lead",
     photoUrl: "/photos/alice.png",
-    githubUrl: "https://github.com/alicemartin",
-    linkedinUrl: "https://linkedin.com/in/alicemartin",
+    githubUrl: "https://github.com/Sarwannandh67",
+    linkedinUrl: "https://linkedin.com/in/sarwannandh",
     quote: "Designing history with passion and care.",
   },
   {
-    name: "Ben Lopez",
-    role: "Code",
+    name: "Krish D. Shah",
+    role: "Lead Developer",
     photoUrl: "/photos/ben.png",
     githubUrl: "https://github.com/benlopez",
     linkedinUrl: "https://linkedin.com/in/benlopez",
     quote: "Learning React with every commit.",
   },
   {
-    name: "Clara Nguyen",
-    role: "Video",
+    name: "Bhanu Prathap",
+    role: "Video Production",
     photoUrl: "/photos/clara.png",
     githubUrl: "https://github.com/claranguyen",
     linkedinUrl: "https://linkedin.com/in/claranguyen",
     quote: "Bringing history to life through visuals.",
   },
   {
-    name: "David Smith",
-    role: "Content",
+    name: "Lakshita",
+    role: "Content Strategist",
+    photoUrl: "/photos/david.png",
+    githubUrl: "https://github.com/davidsmith",
+    linkedinUrl: "https://linkedin.com/in/davidsmith",
+    quote: "Researching with dedication and accuracy.",
+  },
+  {
+    name: "Riya Mehar",
+    role: "Content Strategist",
     photoUrl: "/photos/david.png",
     githubUrl: "https://github.com/davidsmith",
     linkedinUrl: "https://linkedin.com/in/davidsmith",
@@ -45,58 +52,129 @@ const developers: Developer[] = [
   },
 ];
 
+const getCardBackground = (index: number) => {
+  const patterns = [
+    "bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-accent/20 to-secondary/20",
+    "bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-secondary/20 via-primary/20 to-accent/20",
+    "bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-accent/20 via-secondary/20 to-primary/20",
+    "bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-primary/20 via-secondary/20 to-accent/20",
+    "bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-secondary/20 via-accent/20 to-primary/20",
+  ];
+  return patterns[index % patterns.length];
+};
+
 const DeveloperCredits = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0055A4]/60 via-white to-[#EF4135]/90 p-6 sm:p-10 md:p-16 flex flex-col items-center text-charcoalGray">
-      <header className="mb-10 text-center">
-        <h1 className="font-playfair text-5xl font-bold mb-2 text-white drop-shadow-lg">
-          Developer Credits
-        </h1>
-        <p className="text-lg text-white/90">
-          Meet the students who brought Echoes of France to life
-        </p>
-      </header>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl w-full">
-        {developers.map((dev, idx) => (
-          <div
-            key={idx}
-            className="flex flex-col items-center bg-white/30 backdrop-blur-lg rounded-xl p-6 shadow-lg border border-white/40"
-          >
-            <img
-              src={dev.photoUrl}
-              alt={dev.name}
-              className="w-28 h-28 rounded-full mb-4 object-cover"
-              loading="lazy"
-            />
-            <h3 className="text-xl font-semibold mb-1">{dev.name}</h3>
-            <p className="text-sm text-secondary-foreground mb-2">{dev.role}</p>
-            <div className="flex gap-4 mb-3">
-              {dev.githubUrl && (
-                <a
-                  href={dev.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  className="text-charcoalGray hover:text-primary transition-colors"
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Hero Section with Gradient Overlay */}
+      <div className="relative h-[30vh] bg-gradient-to-r from-primary/20 via-accent/20 to-secondary/20">
+        <div className="absolute inset-0 bg-grid-black dark:bg-grid-white" />
+        <div className="container h-full flex flex-col justify-center items-center relative z-10">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+            Meet Our Team
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground text-center max-w-2xl">
+            The passionate developers and designers behind Echoes of France
+          </p>
+        </div>
+      </div>
+
+      {/* Team Grid with Overlapping Cards */}
+      <div className="container py-16 relative">
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="flex pl-8 pr-16 py-8 gap-4">
+            {developers.map((dev, idx) => (
+              <div
+                key={idx}
+                className="w-[300px] shrink-0 -ml-8 first:ml-0 group"
+                style={{
+                  transform: `rotate(${idx % 2 === 0 ? -2 : 2}deg)`,
+                  transition: 'all 0.3s ease-in-out',
+                }}
+              >
+                <div 
+                  className={`relative shadow-lg rounded-xl overflow-hidden transition-all duration-300 
+                    group-hover:shadow-xl group-hover:-translate-y-2 group-hover:rotate-0 group-hover:z-10 
+                    ${getCardBackground(idx)}`}
                 >
-                  GitHub
-                </a>
-              )}
-              {dev.linkedinUrl && (
-                <a
-                  href={dev.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  className="text-charcoalGray hover:text-primary transition-colors"
-                >
-                  LinkedIn
-                </a>
-              )}
-            </div>
-            <p className="text-center text-sm italic">"{dev.quote}"</p>
+                  {/* Decorative patterns */}
+                  <div className="absolute inset-0 bg-grid-black dark:bg-grid-white opacity-30" />
+                  <div className="absolute inset-0 bg-noise mix-blend-soft-light opacity-30" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background/80 backdrop-blur-[2px]" />
+                  
+                  <div className="relative z-10">
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src={dev.photoUrl}
+                        alt={dev.name}
+                        className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                    <div className="relative p-6 backdrop-blur-sm">
+                      <div className="relative z-10">
+                        <h3 className="text-xl font-semibold mb-1 text-primary transform group-hover:translate-x-2 transition-transform duration-300">
+                          {dev.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mb-3 transform group-hover:translate-x-2 transition-transform duration-300 delay-75">
+                          {dev.role}
+                        </p>
+                        <p className="text-sm italic text-foreground/80 mb-4 transform group-hover:translate-x-2 transition-transform duration-300 delay-100">
+                          "{dev.quote}"
+                        </p>
+                        <div className="flex gap-4 items-center transform group-hover:translate-x-2 transition-transform duration-300 delay-150">
+                          {dev.githubUrl && (
+                            <a
+                              href={dev.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform duration-300"
+                            >
+                              <svg
+                                className="w-5 h-5"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </a>
+                          )}
+                          {dev.linkedinUrl && (
+                            <a
+                              href={dev.linkedinUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform duration-300"
+                            >
+                              <svg
+                                className="w-5 h-5"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
