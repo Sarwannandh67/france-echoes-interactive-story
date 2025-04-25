@@ -539,7 +539,8 @@ const Index = () => {
       facts: chapter1Facts,
       vocabulary: chapter1Vocabulary,
       quiz: chapter1Quiz,
-      videoUrl: "https://www.youtube.com/embed/RAZPKaZj2gM"
+      videoUrl: "/videos/The conquest of Gallic by Julius Ceasar and the battle of Alesia.mp4",
+      imageUrl: "/images/chapters/caesar-gaul.jpg"
     },
     {
       id: 2,
@@ -549,7 +550,8 @@ const Index = () => {
       facts: chapter2Facts,
       vocabulary: chapter2Vocabulary,
       quiz: chapter2Quiz,
-      videoUrl: "https://www.youtube.com/embed/OGIYXemQ1YQ"
+      videoUrl: "/videos/JohnArcWar.mp4",
+      imageUrl: "/images/chapters/joan-of-arc.jpg"
     },
     {
       id: 3,
@@ -559,7 +561,8 @@ const Index = () => {
       facts: chapter3Facts,
       vocabulary: chapter3Vocabulary,
       quiz: chapter3Quiz,
-      videoUrl: "https://www.youtube.com/embed/_YblQCfgo9M"
+      videoUrl: "/videos/RenaissanceandLouisXIV.mp4",
+      imageUrl: "/images/chapters/renaissance.jpg"
     },
     {
       id: 4,
@@ -569,7 +572,8 @@ const Index = () => {
       facts: chapter4Facts,
       vocabulary: chapter4Vocabulary,
       quiz: chapter4Quiz,
-      videoUrl: "https://www.youtube.com/embed/example4"
+      videoUrl: "/videos/RenaissanceandLouisXIV.mp4",
+      imageUrl: "/images/chapters/louis-xiv.jpg"
     },
     {
       id: 5,
@@ -579,7 +583,8 @@ const Index = () => {
       facts: chapter5Facts,
       vocabulary: chapter5Vocabulary,
       quiz: chapter5Quiz,
-      videoUrl: "https://www.youtube.com/embed/example5"
+      videoUrl: "/videos/Napoleon and The Battle of Waterloo.mp4",
+      imageUrl: "/images/chapters/napoleon.jpg"
     },
     {
       id: 6,
@@ -589,7 +594,8 @@ const Index = () => {
       facts: chapter6Facts,
       vocabulary: chapter6Vocabulary,
       quiz: chapter6Quiz,
-      videoUrl: "https://www.youtube.com/embed/example6"
+      videoUrl: "/videos/French Colonisation and Decolonisation.mp4",
+      imageUrl: "/images/chapters/colonization.jpg"
     },
     {
       id: 7,
@@ -599,7 +605,8 @@ const Index = () => {
       facts: chapter7Facts,
       vocabulary: chapter7Vocabulary,
       quiz: chapter7Quiz,
-      videoUrl: "https://www.youtube.com/embed/example7"
+      videoUrl: "/videos/ww1.mp4",
+      imageUrl: "/images/chapters/ww1.jpg"
     },
     {
       id: 8,
@@ -609,7 +616,8 @@ const Index = () => {
       facts: chapter8Facts,
       vocabulary: chapter8Vocabulary,
       quiz: chapter8Quiz,
-      videoUrl: "https://www.youtube.com/embed/example8"
+      videoUrl: "/videos/ww2.mp4",
+      imageUrl: "/images/chapters/ww2.jpg"
     },
     {
       id: 9,
@@ -619,7 +627,8 @@ const Index = () => {
       facts: chapter9Facts,
       vocabulary: chapter9Vocabulary,
       quiz: chapter9Quiz,
-      videoUrl: "https://www.youtube.com/embed/example9"
+      videoUrl: "/videos/WhatsApp Video 2025-04-25 at 15.53.42_528996a5.mp4",
+      imageUrl: "/images/chapters/may-1968.jpg"
     }
   ];
 

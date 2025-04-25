@@ -1,54 +1,91 @@
 import React from "react";
+import { useLanguage } from "../LanguageContext";
 
 interface Developer {
   name: string;
-  role: string;
+  role: {
+    french: string;
+    english: string;
+  };
   photoUrl: string;
   githubUrl?: string;
   linkedinUrl?: string;
-  quote: string;
+  quote: {
+    french: string;
+    english: string;
+  };
 }
 
 const developers: Developer[] = [
   {
     name: "Sarwan Nandh",
-    role: "Design Lead",
+    role: {
+      french: "Responsable Design",
+      english: "Design Lead"
+    },
     photoUrl: "/photos/alice.png",
     githubUrl: "https://github.com/Sarwannandh67",
     linkedinUrl: "https://linkedin.com/in/sarwannandh",
-    quote: "Designing history with passion and care.",
+    quote: {
+      french: "Concevoir l'histoire avec passion et soin.",
+      english: "Designing history with passion and care."
+    }
   },
   {
     name: "Krish D. Shah",
-    role: "Lead Developer",
+    role: {
+      french: "Développeur Principal",
+      english: "Lead Developer"
+    },
     photoUrl: "/photos/ben.png",
     githubUrl: "https://github.com/benlopez",
     linkedinUrl: "https://linkedin.com/in/benlopez",
-    quote: "Learning React with every commit.",
+    quote: {
+      french: "Apprendre React à chaque commit.",
+      english: "Learning React with every commit."
+    }
   },
   {
     name: "Bhanu Prathap",
-    role: "Video Production",
+    role: {
+      french: "Production Vidéo",
+      english: "Video Production"
+    },
     photoUrl: "/photos/clara.png",
     githubUrl: "https://github.com/claranguyen",
     linkedinUrl: "https://linkedin.com/in/claranguyen",
-    quote: "Bringing history to life through visuals.",
+    quote: {
+      french: "Donner vie à l'histoire par les visuels.",
+      english: "Bringing history to life through visuals."
+    }
   },
   {
     name: "Lakshita",
-    role: "Content Strategist",
+    role: {
+      french: "Stratège de Contenu",
+      english: "Content Strategist"
+    },
     photoUrl: "/photos/david.png",
     githubUrl: "https://github.com/davidsmith",
     linkedinUrl: "https://linkedin.com/in/davidsmith",
-    quote: "Researching with dedication and accuracy.",
+    quote: {
+      french: "Rechercher avec dévouement et précision.",
+      english: "Researching with dedication and accuracy."
+    }
   },
   {
     name: "Riya Mehar",
-    role: "Content Strategist",
+    role: {
+      french: "Stratège de Contenu",
+      english: "Content Strategist"
+    },
     photoUrl: "/photos/david.png",
     githubUrl: "https://github.com/davidsmith",
     linkedinUrl: "https://linkedin.com/in/davidsmith",
-    quote: "Researching with dedication and accuracy.",
+    quote: {
+      french: "Rechercher avec dévouement et précision.",
+      english: "Researching with dedication and accuracy."
+    }
   },
 ];
 
@@ -64,6 +101,8 @@ const getCardBackground = (index: number) => {
 };
 
 const DeveloperCredits = () => {
+  const { language } = useLanguage();
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section with Gradient Overlay */}
@@ -71,10 +110,12 @@ const DeveloperCredits = () => {
         <div className="absolute inset-0 bg-grid-black dark:bg-grid-white" />
         <div className="container h-full flex flex-col justify-center items-center relative z-10">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            Meet Our Team
+            {language === 'french' ? 'Notre Équipe' : 'Meet Our Team'}
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground text-center max-w-2xl">
-            The passionate developers and designers behind Echoes of France
+            {language === 'french' 
+              ? 'Les développeurs et designers passionnés derrière Échos de France'
+              : 'The passionate developers and designers behind Echoes of France'}
           </p>
         </div>
       </div>
@@ -118,10 +159,10 @@ const DeveloperCredits = () => {
                           {dev.name}
                         </h3>
                         <p className="text-sm text-muted-foreground mb-3 transform group-hover:translate-x-2 transition-transform duration-300 delay-75">
-                          {dev.role}
+                          {language === 'french' ? dev.role.french : dev.role.english}
                         </p>
                         <p className="text-sm italic text-foreground/80 mb-4 transform group-hover:translate-x-2 transition-transform duration-300 delay-100">
-                          "{dev.quote}"
+                          "{language === 'french' ? dev.quote.french : dev.quote.english}"
                         </p>
                         <div className="flex gap-4 items-center transform group-hover:translate-x-2 transition-transform duration-300 delay-150">
                           {dev.githubUrl && (
@@ -130,6 +171,7 @@ const DeveloperCredits = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform duration-300"
+                              aria-label={language === 'french' ? 'Profil GitHub' : 'GitHub Profile'}
                             >
                               <svg
                                 className="w-5 h-5"
@@ -151,6 +193,7 @@ const DeveloperCredits = () => {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform duration-300"
+                              aria-label={language === 'french' ? 'Profil LinkedIn' : 'LinkedIn Profile'}
                             >
                               <svg
                                 className="w-5 h-5"
