@@ -20,8 +20,8 @@ const developers: Developer[] = [
   {
     name: "Sarwan Nandh",
     role: {
-      french: "Responsable Design",
-      english: "Design Lead"
+      french: "Développeur Principal",
+      english: "Lead Developer"
     },
     photoUrl: "/images/sarwan.jpg",
     githubUrl: "https://github.com/Sarwannandh67",
@@ -34,8 +34,8 @@ const developers: Developer[] = [
   {
     name: "Krish D. Shah",
     role: {
-      french: "Développeur Principal",
-      english: "Lead Developer"
+      french: "co-développeur et responsable du contenu",
+      english: "Co-Developer and Content Manager"
     },
     photoUrl: "/images/krish.jpg",
     githubUrl: "https://github.com/KrishDShah",
@@ -48,8 +48,8 @@ const developers: Developer[] = [
   {
     name: "Bhanu Prathap",
     role: {
-      french: "Production Vidéo",
-      english: "Video Production"
+      french: "Production Vidéo et stratège de contenu ",
+      english: "Video Production and content strategist"
     },
     photoUrl: "/images/bhanu.jpg",
     githubUrl: "https://github.com/bhanu-prathap",
@@ -62,8 +62,8 @@ const developers: Developer[] = [
   {
     name: "Lakshita",
     role: {
-      french: "Stratège de Contenu",
-      english: "Content Strategist"
+      french: "Responsable du contenu",
+      english: "Content Lead"
     },
     photoUrl: "/images/lakshita.jpg",
     githubUrl: "https://github.com/lakshita-k",
