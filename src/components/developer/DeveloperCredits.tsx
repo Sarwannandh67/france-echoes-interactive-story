@@ -23,7 +23,7 @@ const developers: Developer[] = [
       french: "Responsable Design",
       english: "Design Lead"
     },
-    photoUrl: "/photos/alice.png",
+    photoUrl: "/images/sarwan.jpg",
     githubUrl: "https://github.com/Sarwannandh67",
     linkedinUrl: "https://linkedin.com/in/sarwannandh",
     quote: {
@@ -37,9 +37,9 @@ const developers: Developer[] = [
       french: "Développeur Principal",
       english: "Lead Developer"
     },
-    photoUrl: "/photos/ben.png",
-    githubUrl: "https://github.com/benlopez",
-    linkedinUrl: "https://linkedin.com/in/benlopez",
+    photoUrl: "/images/krish.jpg",
+    githubUrl: "https://github.com/KrishDShah",
+    linkedinUrl: "https://linkedin.com/in/theKrishDShah",
     quote: {
       french: "Apprendre React à chaque commit.",
       english: "Learning React with every commit."
@@ -51,9 +51,9 @@ const developers: Developer[] = [
       french: "Production Vidéo",
       english: "Video Production"
     },
-    photoUrl: "/photos/clara.png",
-    githubUrl: "https://github.com/claranguyen",
-    linkedinUrl: "https://linkedin.com/in/claranguyen",
+    photoUrl: "/images/bhanu.jpg",
+    githubUrl: "https://github.com/bhanu-prathap",
+    linkedinUrl: "https://linkedin.com/in/bhanu-prathap",
     quote: {
       french: "Donner vie à l'histoire par les visuels.",
       english: "Bringing history to life through visuals."
@@ -65,9 +65,9 @@ const developers: Developer[] = [
       french: "Stratège de Contenu",
       english: "Content Strategist"
     },
-    photoUrl: "/photos/david.png",
-    githubUrl: "https://github.com/davidsmith",
-    linkedinUrl: "https://linkedin.com/in/davidsmith",
+    photoUrl: "/images/lakshita.jpg",
+    githubUrl: "https://github.com/lakshita-k",
+    linkedinUrl: "https://linkedin.com/in/lakshita-k",
     quote: {
       french: "Rechercher avec dévouement et précision.",
       english: "Researching with dedication and accuracy."
@@ -79,9 +79,9 @@ const developers: Developer[] = [
       french: "Stratège de Contenu",
       english: "Content Strategist"
     },
-    photoUrl: "/photos/david.png",
-    githubUrl: "https://github.com/davidsmith",
-    linkedinUrl: "https://linkedin.com/in/davidsmith",
+    photoUrl: "/images/riya.jpg",
+    githubUrl: "https://github.com/riya-mehar",
+    linkedinUrl: "https://linkedin.com/in/riya-mehar",
     quote: {
       french: "Rechercher avec dévouement et précision.",
       english: "Researching with dedication and accuracy."

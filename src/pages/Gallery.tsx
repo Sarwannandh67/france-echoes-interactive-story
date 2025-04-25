@@ -4,58 +4,88 @@ import { useLanguage } from "../components/LanguageContext";
 // Gallery items with historical French images
 const galleryItems = [
   {
-    src: "/images/napoleon.jpg",
+    src: "/images/napoleanbonaparte.jpg",
     alt: "Napoleon Bonaparte",
     frenchDesc: "Napoléon Bonaparte à la bataille d'Austerlitz",
     englishDesc: "Napoleon Bonaparte at the Battle of Austerlitz",
   },
   {
-    src: "/images/versailles.jpg",
+    src: "/images/palacedeversailles.jpg",
     alt: "Palace of Versailles",
     frenchDesc: "Le château de Versailles, symbole de la monarchie française",
     englishDesc: "Palace of Versailles, symbol of French monarchy",
   },
   {
-    src: "/images/bastille.jpg",
+    src: "/images/bastille.jpeg",
     alt: "Storming of the Bastille",
     frenchDesc: "La prise de la Bastille, 14 juillet 1789",
     englishDesc: "Storming of the Bastille, July 14, 1789",
   },
   {
-    src: "/images/joan-of-arc.jpg",
+    src: "/images/100yearswar&joanofarc.jpg",
     alt: "Joan of Arc",
     frenchDesc: "Jeanne d'Arc, l'héroïne française",
     englishDesc: "Joan of Arc, the French heroine",
   },
   {
-    src: "/images/louis-xiv.jpg",
+    src: "/images/thesunking.jpg",
     alt: "Louis XIV",
     frenchDesc: "Louis XIV, le Roi Soleil",
     englishDesc: "Louis XIV, the Sun King",
   },
   {
-    src: "/images/french-revolution.jpg",
+    src: "/images/frenchrevolution.jpg",
     alt: "French Revolution",
     frenchDesc: "La Révolution française, un tournant de l'histoire",
     englishDesc: "The French Revolution, a turning point in history",
   },
   {
-    src: "/images/ww1.jpg",
+    src: "/images/franceworldwar1.jpg",
     alt: "World War I",
     frenchDesc: "La Première Guerre mondiale en France",
     englishDesc: "World War I in France",
   },
   {
-    src: "/images/ww2-liberation.jpg",
+    src: "/images/franceworldwar2.jpg",
     alt: "Liberation of Paris",
     frenchDesc: "La libération de Paris, 1944",
     englishDesc: "Liberation of Paris, 1944",
   },
   {
-    src: "/images/may-68.jpg",
+    src: "/images/may1968protests.jpg",
     alt: "May 1968",
     frenchDesc: "Mai 68, les manifestations étudiantes",
     englishDesc: "May 1968 student protests",
+  },
+  {
+    src: "/images/conquestofgaulandbattleofasia.jpg",
+    alt: "Conquest of Gaul and Battle Of Asia [ 58 - 51BC ] ",
+    frenchDesc: "Conquête de la Gaule et Bataille d'Asie",
+    englishDesc: "Conquest of Gaul and Battle of Asia",
+  },
+  {
+    src: "/images/liberationofparis.jpg",
+    alt: "Liberation Of Paris [19 August 1944]",
+    frenchDesc: "Libération de Paris",
+    englishDesc: "Liberation Of Paris",
+  },
+  {
+    src: "/images/liberationofparis.jpg",
+    alt: "Tour Eiffel [March 31, 1889]",
+    frenchDesc: "Tour Eiffel",
+    englishDesc: "Eiffel Tower",
+  },
+  {
+    src: "/images/modernfrance.jpg",
+    alt: "Modern France",
+    frenchDesc: "La France moderne",
+    englishDesc: "Modern France",
+  },
+  {
+    src: "/images/franceineuropeanunion.jpg",
+    alt: "Role in European Union",
+    frenchDesc: "Le rôle de la France dans l'Union européenne",
+    englishDesc: "France Role In European Union",
   },
 ];
 
